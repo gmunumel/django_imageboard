@@ -1,0 +1,5 @@
+[
+{ "model": "imageboard.imagetag", "pk": 1, "fields": { "image": 1, "tag": 1 } },
+{ "model": "imageboard.imagetag", "pk": 1, "fields": { "image": 1, "tag": 2 } },
+{ "model": "imageboard.imagetag", "pk": 1, "fields": { "image": 1, "tag": 3 } }
+]

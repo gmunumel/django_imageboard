@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+<head>
+<title>{% block title %}HTML5 Template - by Tristar Web Design{% endblock %}</title>
+<meta name="keywords" content=" " />
+<meta name="description" content=" " />
+<meta charset="utf-8" />
+
+{% block stylesheet %}{% endblock %}
+</head>
+<body>
+
+<div id="wrapper">
+
+  <nav>
+    <ul class="menu">
+      <li><a class="active" title="home" href="index.html">Home</a></li>
+      <li><a title="link 1" href="index.html">Link 1</a></li>
+      <li><a title="link 2" href="index.html">Link 2</a></li>
+      <li><a title="link 3" href="index.html">Link 3</a></li>
+      <li><a title="link 4" href="index.html">Link 4</a></li>
+      <li><a title="contact us" href="index.html">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <h1><a title="home page" href="index.html">My Amazing Image Board</a></h1>
+  </header>
+
+  <section id="main" class="clearfix">
+    {% block content %}{% endblock %}
+    {% block aside %}{% endblock %}
+  </section>
+
+  {% block javascripts %}{% endblock %}
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#submit').hover(
+        function(){ // Change the input image's source when we "roll on"
+          $(this).attr({ src : 'enter_over.gif'});
+        },
+        function(){ // Change the input image's source back to the default on "roll off"
+          $(this).attr({ src : 'enter.gif'});
+        }
+      );
+    });
+  </script>
+  <footer>
+
+    <section id="footertop">
+
+      <aside class="footer-column">
+        <h4>Footer Section 1</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vehicula sodales dolor vitae pellentesque. Vestibulum non urna nisi, et viverra nunc. Suspendisse vel posuere tellus. Praesent nec ligula dolor, vel lobortis ligula. Donec fringilla adipiscing elit tempus dignissim.</p>
+      </aside>
+
+      <aside class="footer-column">
+        <h4>Footer Section 2</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vehicula sodales dolor vitae pellentesque. Vestibulum non urna nisi, et viverra nunc. Suspendisse vel posuere tellus. Praesent nec ligula dolor, vel lobortis ligula. Donec fringilla adipiscing elit tempus dignissim.</p>
+      </aside>
+
+    </section>
+
+    <section id="copyright">
+      <h4>Copyright</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.</p>
+    </section>
+
+    <section id="templatecopy">
+      <p>Template design by <a title="derby web design" href="http://www.tristarwebdesign.co.uk">tristar web design</a></p>
+    </section>
+
+  </footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}My amazing Imageboard{% endblock %}
+
+{% load staticfiles %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static "css/style_ib_large.css" %}" type="text/css" media="screen" />
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+<a alt="" href="{% url 'imageboard:image_details' image.id %}">Normal Mode</a>
+{% for image_f in pag_image.object_list %}
+  {% if pag_image.has_next %}
+    <a title="" href="?page={{ pag_image.next_page_number }}">
+      <img class="imagehover_ib_large" alt="" src="{% static "uploaded/" %}{{ image_f }}" />
+    </a>
+  {% else %}
+    <a title="" href="?page={{ '1' }}">
+      <img class="imagehover_ib_large" alt="" src="{% static "uploaded/" %}{{ image_f }}" />
+    </a>
+  {% endif %}
+{% endfor %}
+<div class="pagination">
+  <span class="step-links">
+    {% if pag_image.has_previous %}
+    <a href="?page={{ pag_image.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ pag_image.number }} of {{ pag_image.paginator.num_pages }}.
+    </span>
+
+    {% if pag_image.has_next %}
+    <a href="?page={{ pag_image.next_page_number }}">next</a>
+    {% endif %}
+  </span>
+</div>
+{% endblock %}

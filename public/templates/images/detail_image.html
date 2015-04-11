@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% load filters_tags %}
+
+{% block title %}My amazing Imageboard{% endblock %}
+
+{% load staticfiles %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static "css/style.css" %}" type="text/css" media="screen" />
+<link rel="stylesheet" href="{% static "css/css_pirobox/style.css" %}" type="text/css" media="screen" />
+<link rel="stylesheet" href="{% static "css/jquery.ui.autocomplete.custom.css" %}" type="text/css" media="screen" />
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/pirobox_extended.js" %}"></script>
+<script type="text/javascript" src="{% static "js/jquery-ui-1.8.core-and-interactions.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/jquery-ui-1.8.autocomplete.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/tag-it.js" %}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $.piroBox_ext({
+      piro_speed :700,
+      bg_alpha : 0.5,
+      piro_scroll : true,
+      piro_drag :false,
+      piro_nav_pos: 'bottom'
+    });
+    $.get("{% url 'imageboard:image_wo_tags_list' %}", function(data) {
+        //var myArray = [];
+        data = data.split('~');
+        data.pop();
+        $("#mytags").tagit({
+          availableTags: data
+        });
+    });
+    $('#insertTags').click(function() {
+        var q = $('#mytags').text();
+        var image_id = $('#image_id').val();
+        if(q.length > 0){
+          q = q.replace(/x/g,"");
+          q = q.split("\n");
+          $('#list_tags').html('&nbsp;').load('{% url 'imageboard:ajax_save_tags' %}?idimage=' + image_id  + '&tags=' + q);
+        }
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<section id="content">
+  <input id="image_id" value="{{ image.id }}" type="hidden" />
+  <div class="line">
+    <label for="tags">Tags</label>
+    <table>
+      <tr>
+        <td><ul id="mytags"></ul></td>
+        <td><input id="insertTags" class="form-submit-button" type="submit" value="Add" /></td>
+      </tr>
+    </table>
+  </div>
+  <br />
+  <a alt="" href="{% url 'imageboard:image_big_index' image.id %}">Large Mode</a>
+  <div id="list_tags"></div>
+  <table>
+    {% for row in image.find_all_images|tablecols:3 %}
+    <tr>
+      {% for images_path in row %}
+      <td>
+        <ul>
+          <li><a class="pirobox_gall" rel="gallery" title="" href="{% static "uploaded/" %}{{ images_path }}"><img class="imagehover_details" alt="" src="{% static "uploaded/" %}{{ images_path }}" /></a></li>
+        </ul>
+      </td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+</section>
+{% endblock %}
+{% block aside %}{% include "aside.html" %}{% endblock %}

@@ -1,0 +1,5 @@
+[
+{ "model": "imageboard.tag", "pk": 1, "fields": { "title": "Various" } },
+{ "model": "imageboard.tag", "pk": 2, "fields": { "title": "Random" } },
+{ "model": "imageboard.tag", "pk": 3, "fields": { "title": "Miscelaneos" } }
+]

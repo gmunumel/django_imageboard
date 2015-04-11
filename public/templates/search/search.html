@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}My amazing Search Imageboard{% endblock %}
+
+
+{% load staticfiles %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static "css/style.css" %}" type="text/css" media="screen" />
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/jquery.cycle.all.js" %}"></script>
+<script type="text/javascript">
+jQuery(function($){
+    // Cycle plugin
+    $('.slides').cycle({
+      fx:     'none',
+      speed:   800,
+      timeout: 70
+    }).cycle("pause");
+
+    // Pause & play on hover
+    $('.slideshow-block').hover(function(){
+      $(this).find('.slides').addClass('active').cycle('resume');
+    }, function(){
+      $(this).find('.slides').removeClass('active').cycle('pause');
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<section id="content">
+  <h2>Results({{ page.object_list|length }}) for {{query}}</h2>
+
+  {% if query %}
+  {% for result in page.object_list %}
+  <article>
+    <h2><a href="{% url 'imageboard:image_details' result.object.id %}">{{ result.object.name }}</a></h2>
+    <div class="slideshow-block">
+      <a href="{% url 'imageboard:image_details' result.object.id %}" class="link" ></a>
+      <ul class="slides">
+        {% for cy_image in result.object.find_all_images %}
+        <li><a title="" href="{% url 'imageboard:image_details' result.object.id %}">
+          <img class="imagehover" alt="" src="{% static "uploaded/" %}{{ cy_image }}" /></a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.</p>
+  </article>
+  <br /> 
+  <hr />
+  {% empty %}
+  <p>No results found.</p>
+  {% endfor %}
+  {% endif %}
+</form>
+  </section>
+{% endblock %}
+{% block aside %}
+  <aside id="sidebar">
+
+    <h3>Search</h3>
+    <form name="input" action="." method="get">
+      <ul class="clearfix">
+        <li><input type="text" name="q" class="searchBox" value="{{query}}" /><input class="form-submit-button-2" type="submit" value="Search"></li>
+      </ul>
+    </form>
+    <h3>Sidebar Links</h3>
+    <ul class="clearfix">
+      <li><a title="home" href="index.html">Home</a></li>
+      <li><a title="link 1" href="index.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a></li>
+      <li><a title="link 2" href="index.html">Link 2</a></li>
+      <li><a title="link 3" href="index.html">Link 3</a></li>
+      <li><a title="contact us" href="index.html">Contact Us</a></li>
+    </ul>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vehicula sodales dolor vitae pellentesque. Vestibulum non urna nisi, et viverra nunc. Suspendisse vel posuere tellus. Praesent nec ligula dolor, vel lobortis ligula. Donec fringilla adipiscing elit tempus dignissim.</p>
+    <h3>Social Networking</h3>
+    <ul class="clearfix">
+      <li><a title="twitter" href="index.html">Twitter</a></li>
+      <li><a title="facebook" href="index.html">Facebook</a></li>
+    </ul>
+
+    </aside>
+{% endblock %}

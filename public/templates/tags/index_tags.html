@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load filters_tags %}
+
+{% block title %}My amazing Tag Imageboard{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ STATIC_URL }}/css/style.css" type="text/css" media="screen" />
+{% endblock %}
+{% block javascripts %}{% endblock %}
+
+{% block content %}
+<section id="content">
+  <table>
+    {% for tag in tags|tablecols:3 %}
+    <tr>
+      {% for tag_path in tag %}
+      <td>
+        <ul id="tag-list">
+          <a class="" title="" href="/tag/{{ tag_path }}"><img class="imagehover_details" alt="" src="{{ tag_path.find_tag_image }}" /></a>
+          <span>{{ tag_path.title }}</span>
+        </ul>
+      </td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+</section>
+{% endblock %}
+{% block aside %}{% include "aside.html" %}{% endblock %}

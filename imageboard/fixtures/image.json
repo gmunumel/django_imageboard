@@ -1,0 +1,3 @@
+[
+{ "model": "imageboard.image","pk":1, "fields":{ "name": "Miscelaneos", "description": "", "author": "", "translated_by": "", "uploaded_date": "2008-05-27 00:00:00","uploaded_by": "John Doe", "path_name": "Miscelaneos", "download_link1": "", "download_link2": "", "download_link3": ""} }
+]

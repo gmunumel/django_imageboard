@@ -1,0 +1,30 @@
+<aside id="sidebar">
+
+  <h3>Search</h3>
+  <form name="input" action="/search/" method="get">
+    <ul class="clearfix">
+      <li><input type="text" name="q" class="searchBox" /><input class="form-submit-button-2" type="submit" value="Search" /></li>
+    </ul>
+  </form>
+  <h3>Tag Cloud</h3>
+  <p>
+  {% for tag in tagcloud %}
+  <a style="font-size: {{ tag.size }}em;" title="tags" href="{% url 'imageboard:tag_details' tag.tag.id %}">{{ tag.tag }}({{ tag.count }})</a>
+  {% endfor %}
+  </p>
+  <h3>Sidebar Links</h3>
+  <ul class="clearfix">
+    <li><a title="home" href="index.html">Home</a></li>
+    <li><a title="link 1" href="index.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a></li>
+    <li><a title="link 2" href="index.html">Link 2</a></li>
+    <li><a title="link 3" href="index.html">Link 3</a></li>
+    <li><a title="contact us" href="index.html">Contact Us</a></li>
+  </ul>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vehicula sodales dolor vitae pellentesque. Vestibulum non urna nisi, et viverra nunc. Suspendisse vel posuere tellus. Praesent nec ligula dolor, vel lobortis ligula. Donec fringilla adipiscing elit tempus dignissim.</p>
+  <h3>Social Networking</h3>
+  <ul class="clearfix">
+    <li><a title="twitter" href="index.html">Twitter</a></li>
+    <li><a title="facebook" href="index.html">Facebook</a></li>
+  </ul>
+
+</aside>
