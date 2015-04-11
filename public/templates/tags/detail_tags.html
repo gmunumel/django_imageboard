@@ -2,12 +2,13 @@
 
 {% block title %}My amazing Tag Imageboard{% endblock %}
 
+{% load staticfiles %}
 {% block stylesheet %}
-<link rel="stylesheet" href="{{ STATIC_URL }}/css/style.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="{% static "css/style.css" %}" type="text/css" media="screen" />
 {% endblock %}
 {% block javascripts %}
-<script type="text/javascript" src="{{ STATIC_URL }}/js/jquery.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}/js/jquery.cycle.all.js"></script>
+<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/jquery.cycle.all.js" %}"></script>
 <script type="text/javascript">
 jQuery(function($){
 
@@ -47,7 +48,7 @@ jQuery(function($){
       <a href="/imageboard/{{ image.id }}/" class="link" ></a>
       <ul class="slides">
         {% for cy_image in image.find_all_images %}
-        <li><a title="" href="/imageboard/{{ image.id }}/"><img class="imagehover" alt="" src="{{ STATIC_URL }}{{ UPLOADED_IMAGE_PATH }}{{ cy_image }}" /></a></li>
+        <li><a title="" href="/imageboard/{{ image.id }}/"><img class="imagehover" alt="" src="{% static "uploaded/" %}{{ cy_image }}" /></a></li>
         {% endfor %}
       </ul>
     </div>

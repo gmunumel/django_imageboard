@@ -1,4 +1,4 @@
-# Django settings for ak_project project.
+# Django settings for django imageboard project.
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -191,6 +191,7 @@ LOGGING = {
 # Images related paths
 UPLOADED_IMAGE_PATH = '/uploaded/'
 
+# Search Engine
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',

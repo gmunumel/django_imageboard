@@ -6,12 +6,11 @@ from . import views
 
 urlpatterns = [
     # index images
-    #url(r'^$', views.index2, name = 'image_index'),
     url(r'^$', views.index, name = 'image_index'),
     url(r'^imageboard/$', views.index, name = 'image_index'),
 
     # index search
-    (r'^search/$', include('haystack.urls')),
+    url(r'^search/$', include('haystack.urls')),
 
     # tags urls
     url(r'^tags/$', views.tags, name = 'tag_index'),

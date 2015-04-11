@@ -15,17 +15,17 @@
 
   <nav>
     <ul class="menu">
-      <li><a class="active" title="home" href="index.html">Home</a></li>
-      <li><a title="link 1" href="index.html">Link 1</a></li>
-      <li><a title="link 2" href="index.html">Link 2</a></li>
-      <li><a title="link 3" href="index.html">Link 3</a></li>
-      <li><a title="link 4" href="index.html">Link 4</a></li>
-      <li><a title="contact us" href="index.html">Contact Us</a></li>
+      <li><a class="active" title="home" href="{% url 'imageboard:image_index' %}">Home</a></li>
+      <li><a title="link 1" href="{% url 'imageboard:image_index' %}">Link 1</a></li>
+      <li><a title="link 2" href="{% url 'imageboard:image_index' %}">Link 2</a></li>
+      <li><a title="link 3" href="{% url 'imageboard:image_index' %}">Link 3</a></li>
+      <li><a title="link 4" href="{% url 'imageboard:image_index' %}">Link 4</a></li>
+      <li><a title="contact us" href="{% url 'imageboard:image_index' %}">Contact Us</a></li>
     </ul>
   </nav>
 
   <header>
-    <h1><a title="home page" href="index.html">My Amazing Image Board</a></h1>
+    <h1><a title="home page" href="{% url 'imageboard:image_index' %}">My Amazing Image Board</a></h1>
   </header>
 
   <section id="main" class="clearfix">

@@ -4,7 +4,7 @@ This project was built using virtual enviroments
 
   The HOME of the working environment is in $HOME/.virtualenvs (/home/alucard/.virtualenvsenv)
 
-Using Django Version 1.4
+Using Django Version 1.8
   If there a problem you need to run the following command
   to install de requirements for the project
   
