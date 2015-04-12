@@ -1,15 +1,25 @@
 # encoding: utf-8
-import json
 
-from django.http import HttpResponse, Http404
-from django.views.generic import CreateView, ListView, DeleteView
+import os
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.decorators.http import require_POST
 from django.shortcuts import render_to_response
+from django.http import HttpResponse, Http404
+from django.core.urlresolvers import reverse
 from django.template import RequestContext
+from django.views import generic
+from django.conf import settings
+
+from jfu.http import upload_receive, UploadResponse, JFUResponse
+
 from imageboard.models import Image, ImageTag, Tag
-from .response import JSONResponse, response_mimetype
-from .serialize import serialize
+
 from math import log
+
+
+# MEDIA_URL
+MEDIA_URL = settings.MEDIA_URL
 
 # Maximun number of images per page
 IMAGES_PER_PAGE = 5
@@ -220,4 +230,50 @@ def ajax_save_tags(request):
         return render_to_response(template, data, context_instance = RequestContext(request))
     else:
         raise Http404
+
+
+#######################
+#  uploaded files
+#######################
+@require_POST
+def upload( request ):
+
+    # The assumption here is that jQuery File Upload
+    # has been configured to send files one at a time.
+    # If multiple files can be uploaded simulatenously,
+    # 'file' may be a list of files.
+    file = upload_receive( request )
+
+    instance = Image( file = file )
+    instance.save()
+
+    basename = os.path.basename( instance.file.path )
+
+    file_dict = {
+        'name' : basename,
+        'size' : file.size,
+
+        'url': MEDIA_URL + basename,
+        'thumbnailUrl': MEDIA_URL + basename,
+
+        'deleteUrl': reverse('jfu_delete', kwargs = { 'pk': instance.pk }),
+        'deleteType': 'POST',
+    }
+
+    return UploadResponse( request, file_dict )
+
+#######################
+#  delete uploaded files
+#######################
+@require_POST
+def upload_delete( request, pk ):
+    success = True
+    try:
+        instance = Image.objects.get( pk = pk )
+        os.unlink( instance.file.path )
+        instance.delete()
+    except Image.DoesNotExist:
+        success = False
+
+    return JFUResponse( request, success )
 

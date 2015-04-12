@@ -34,7 +34,7 @@ class Image(models.Model):
     #image_width = models.PositiveIntegerField(editable=False, null=True)
     # The image
     # source: http://stackoverflow.com/questions/19371286/django-admin-image-upload-not-saving-on-database
-    file = models.ImageField(upload_to=MEDIA_URL)
+    image = models.ImageField(upload_to=MEDIA_URL)
                               #width_field="image_width",height_field="image_height")
 
     def __unicode__(self):
@@ -51,7 +51,7 @@ class Image(models.Model):
         return list_files
 
     def tags_per_image(self):
-       return ImageTag.objects.filter(file = self.id)
+       return ImageTag.objects.filter(image = self.id)
 
     VALID_IMAGE_EXTENSIONS = [
         ".jpg",
@@ -66,17 +66,7 @@ class Image(models.Model):
         return any([url.endswith(e) for e in extension_list])
 
     def image_tag(self):
-        return u'<img src="%s" />' % self.file.url
-
-    # Saving the file
-    @models.permalink
-    def save(self, *args, **kwargs):
-        super(Image, self).save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        """delete -- Remove to leave file."""
-        self.file.delete(False)
-        super(Image, self).delete(*args, **kwargs)
+        return u'<img src="%s" />' % self.image.url
 
 class Tag(models.Model):
     # Nombre del titulo del tag
