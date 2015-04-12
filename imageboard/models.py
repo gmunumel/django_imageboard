@@ -33,14 +33,11 @@ class Image(models.Model):
     #image_width = models.PositiveIntegerField(editable=False, null=True)
     # The image
     # source: http://stackoverflow.com/questions/19371286/django-admin-image-upload-not-saving-on-database
-    file = models.ImageField(upload_to=MEDIA_URL)
+    file = models.FileField(upload_to=MEDIA_ROOT)
                               #width_field="image_width",height_field="image_height")
 
     def __unicode__(self):
         return self.file.name
-
-    def get_absolute_url(self):
-        return ('upload-new', )
 
     def find_all_images(self):
         list_files = []

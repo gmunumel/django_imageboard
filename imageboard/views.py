@@ -11,6 +11,8 @@ from django.template import RequestContext
 from django.views import generic
 from django.conf import settings
 
+from datetime import datetime
+
 from jfu.http import upload_receive, UploadResponse, JFUResponse
 
 from imageboard.models import Image, ImageTag, Tag
@@ -252,11 +254,15 @@ def upload( request ):
     # If multiple files can be uploaded simulatenously,
     # 'file' may be a list of files.
     file = upload_receive( request )
-
+  
     instance = Image( file = file )
-    instance.save()
+    basename = os.path.basename( instance.file.path )
 
-    basename = os.path.basename( instance.image.path )
+    instance.name = basename
+    instance.uploaded_date = datetime.now()
+    instance.uploaded_by = 'admin'
+    instance.path_name = basename
+    instance.save()
 
     file_dict = {
         'name' : basename,
