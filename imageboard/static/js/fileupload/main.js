@@ -63,7 +63,7 @@ $(function () {
             // Uncomment the following to send cross-domain cookies:
             //xhrFields: {withCredentials: true},
             //url: $('#fileupload').fileupload('option', 'url'),
-            url: '/upload/view/',
+            url: '/admin/imageboard/image/view/',
             dataType: 'json',
             context: $('#fileupload')[0]
         }).always(function () {
@@ -73,5 +73,6 @@ $(function () {
                 .call(this, null, {result: result});
         });
     }
+		
 
 });

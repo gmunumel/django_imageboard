@@ -67,7 +67,7 @@ $(document).ready(function() {
       {% for images_path in row %}
       <td>
         <ul>
-          <li><a class="pirobox_gall" rel="gallery" title="" href="{% static "uploaded/" %}{{ images_path }}"><img class="imagehover_details" alt="" src="{% static "uploaded/" %}{{ images_path }}" /></a></li>
+          <li><a class="pirobox_gall" rel="gallery" title="" href="{% static "media/" %}{{ images_path }}"><img class="imagehover_details" alt="" src="{% static "media/" %}{{ images_path }}" /></a></li>
         </ul>
       </td>
       {% endfor %}

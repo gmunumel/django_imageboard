@@ -3,6 +3,9 @@ from django.db import models
 from django.conf import settings
 import os
 
+MEDIA_URL = settings.MEDIA_URL
+MEDIA_ROOT = settings.MEDIA_ROOT
+
 # Create your models here.
 class Image(models.Model):
     # Name image
@@ -31,15 +34,28 @@ class Image(models.Model):
     #image_width = models.PositiveIntegerField(editable=False, null=True)
     # The image
     # source: http://stackoverflow.com/questions/19371286/django-admin-image-upload-not-saving-on-database
-    image = models.ImageField(upload_to=settings.UPLOADED_IMAGE_PATH)
+    image = models.ImageField(upload_to=MEDIA_URL)
                               #width_field="image_width",height_field="image_height")
 
     def __unicode__(self):
         return self.name
 
+    # Saving the file
+    @models.permalink
+    def get_absolute_url(self):
+        return ('upload-new', )
+
+    def save(self, *args, **kwargs):
+        super(Image, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        """delete -- Remove to leave file."""
+        self.image.delete(False)
+        super(Image, self).delete(*args, **kwargs)
+
     def find_all_images(self):
         list_files = []
-        for files in os.listdir(settings.STATICFILES_DIRS[0] + settings.UPLOADED_IMAGE_PATH + self.path_name):
+        for files in os.listdir(MEDIA_ROOT + self.path_name):
             list_files.append(self.path_name + "/" + files)
         list_files.sort()
         return list_files
@@ -62,7 +78,6 @@ class Image(models.Model):
     def image_tag(self):
         return u'<img src="%s" />' % self.image.url
 
-    # Saving the file
     '''
     def save(self):
         #super(ImagePillow, self).save()
@@ -94,7 +109,7 @@ class Tag(models.Model):
         return self.title
 
     def find_tag_image(self):
-        return settings.STATIC_URL + settings.UPLOADED_TAG_PATH + self.title + ".png"
+        return MEDIA_ROOT + self.title + ".png"
 
 class ImageTag(models.Model):
     # Relacion a Image

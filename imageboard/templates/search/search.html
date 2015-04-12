@@ -41,7 +41,7 @@ jQuery(function($){
       <ul class="slides">
         {% for cy_image in result.object.find_all_images %}
         <li><a title="" href="{% url 'imageboard:image_details' result.object.id %}">
-          <img class="imagehover" alt="" src="{% static "uploaded/" %}{{ cy_image }}" /></a></li>
+          <img class="imagehover" alt="" src="{% static "media/" %}{{ cy_image }}" /></a></li>
         {% endfor %}
       </ul>
     </div>

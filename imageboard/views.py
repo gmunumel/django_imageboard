@@ -1,12 +1,17 @@
+# encoding: utf-8
+import json
+
 from django.http import HttpResponse, Http404
+from django.views.generic import CreateView, ListView, DeleteView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.conf import settings
 from imageboard.models import Image, ImageTag, Tag
+from .response import JSONResponse, response_mimetype
+from .serialize import serialize
 from math import log
 
-# Imagenes maxima por pagina
+# Maximun number of images per page
 IMAGES_PER_PAGE = 5
 
 def paginator_exe(req, list, case=IMAGES_PER_PAGE):
@@ -215,3 +220,48 @@ def ajax_save_tags(request):
         return render_to_response(template, data, context_instance = RequestContext(request))
     else:
         raise Http404
+
+#######################
+#  create uploaded images
+#######################
+class PictureCreateView(CreateView):
+    model = Image
+    fields = ['image']
+
+    def form_valid(self, form):
+        self.object = form.save()
+        images = [serialize(self.object)]
+        data = {'images': images}
+        response = JSONResponse(data, mimetype=response_mimetype(self.request))
+        response['Content-Disposition'] = 'inline; filename=images.json'
+        return response
+
+    def form_invalid(self, form):
+        data = json.dumps(form.errors)
+        return HttpResponse(content=data, status=400, content_type='application/json')
+
+#######################
+#  show uploaded images
+#######################
+class PictureListView(ListView):
+    model = Image
+
+    def render_to_response(self, context, **response_kwargs):
+        images = [ serialize(p) for p in self.get_queryset() ]
+        data = {'images': images}
+        response = JSONResponse(data, mimetype=response_mimetype(self.request))
+        response['Content-Disposition'] = 'inline; filename=images.json'
+        return response
+
+#######################
+#  delete uploaded images
+#######################
+class PictureDeleteView(DeleteView):
+    model = Image
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+        response = JSONResponse(True, mimetype=response_mimetype(request))
+        response['Content-Disposition'] = 'inline; filename=images.json'
+        return response

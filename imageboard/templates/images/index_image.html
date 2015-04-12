@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}My amazing Images Without Tags Imageboard{% endblock %}
+{% block title %}My amazing Imageboard{% endblock %}
 
 {% load staticfiles %}
 {% block stylesheet %}
-<link rel="stylesheet" href="{% static "css/style.css" %}" type="text/css" media="screen" />s
+<link rel="stylesheet" href="{% static "css/style.css" %}" type="text/css" media="screen" />
 {% endblock %}
 {% block javascripts %}
 <script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
@@ -14,22 +14,23 @@
 
 {% block content %}
 <section id="content">
-  {% if image_wo_tags_list %}
-  {% for image in image_wo_tags_list %}
+  {% if latest_image_list %}
+  {% for image in latest_image_list %}
   <article>
-    <h2><a href="{% url image_details image.id %}">{{ image.name }}</a></h2>
+    <h2><a href="{% url 'imageboard:image_details' image.id %}">{{ image.name }}</a></h2>
     <div class="header-block">
       Tags: 
       {% for tag in image.tags_per_image %}
-      <a href="{% url tag_details tag.tag.id %}" class="link" >{{ tag.tag }}</a>
+      <a href="{% url 'imageboard:tag_details' tag.tag.id %}" class="link" >{{ tag.tag }}</a>
+      {%if not forloop.last %},{% endif %}
       {% endfor%}
     </div>
     <br />
     <div class="slideshow-block">
-      <a href="{% url image_details image.id %}" class="link" ></a>
+      <a href="{% url 'imageboard:image_details' image.id %}" class="link" ></a>
       <ul class="slides">
         {% for cy_image in image.find_all_images %}
-        <li><a title="" href="{% url image_details image.id %}"><img class="imagehover" alt="" src="{% static "uploaded/" %}{{ cy_image }}" /></a></li>
+        <li><a title="" href="{% url 'imageboard:image_details' image.id %}"><img class="imagehover" alt="" src="{% static "media/" %}{{ cy_image }}" /></a></li>
         {% endfor %}
       </ul>
     </div>

@@ -1,6 +1,11 @@
 #from django.conf.urls.defaults import include, url
 from django.conf.urls import url, include
 #from django.conf import settings
+'''
+from imageboard.views import (
+    PictureCreateView, PictureListView, PictureDeleteView
+    )
+'''
 
 from . import views
 
@@ -28,5 +33,17 @@ urlpatterns = [
 
     # ajax ajax_save_tags
     url(r'^imageboard/wo-tags/ajax-save-tags/$', views.ajax_save_tags, name = 'ajax_save_tags'),
+
+    # To create files uploaded
+    #url(r'^image/add/$', views.PictureCreateView.as_view(), name='upload-new'),
+    #url(r'^image/delete/(?P<pk>\d+)$', views.PictureDeleteView.as_view(), name='upload-delete'),
+    #url(r'^admin/imageboard/image/add/$', PictureCreateView.as_view(), name='upload-new'),
+
+    # To view images uploaded
+    url(r'^admin/imageboard/image/view/$', views.PictureListView.as_view(), name='upload-view'),
+
+    # To delete a image
+    url(r'^admin/imageboard/image/delete/(?P<pk>\d+)$', views.PictureDeleteView.as_view(), name='upload-delete'),
+
 ]
 

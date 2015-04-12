@@ -15,11 +15,11 @@
 {% for image_f in pag_image.object_list %}
   {% if pag_image.has_next %}
     <a title="" href="?page={{ pag_image.next_page_number }}">
-      <img class="imagehover_ib_large" alt="" src="{% static "uploaded/" %}{{ image_f }}" />
+      <img class="imagehover_ib_large" alt="" src="{% static "media/" %}{{ image_f }}" />
     </a>
   {% else %}
     <a title="" href="?page={{ '1' }}">
-      <img class="imagehover_ib_large" alt="" src="{% static "uploaded/" %}{{ image_f }}" />
+      <img class="imagehover_ib_large" alt="" src="{% static "media/" %}{{ image_f }}" />
     </a>
   {% endif %}
 {% endfor %}
