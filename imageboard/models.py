@@ -34,24 +34,14 @@ class Image(models.Model):
     #image_width = models.PositiveIntegerField(editable=False, null=True)
     # The image
     # source: http://stackoverflow.com/questions/19371286/django-admin-image-upload-not-saving-on-database
-    image = models.ImageField(upload_to=MEDIA_URL)
+    file = models.ImageField(upload_to=MEDIA_URL)
                               #width_field="image_width",height_field="image_height")
 
     def __unicode__(self):
-        return self.name
+        return self.image.name
 
-    # Saving the file
-    @models.permalink
     def get_absolute_url(self):
         return ('upload-new', )
-
-    def save(self, *args, **kwargs):
-        super(Image, self).save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        """delete -- Remove to leave file."""
-        self.image.delete(False)
-        super(Image, self).delete(*args, **kwargs)
 
     def find_all_images(self):
         list_files = []
@@ -61,7 +51,7 @@ class Image(models.Model):
         return list_files
 
     def tags_per_image(self):
-       return ImageTag.objects.filter(image = self.id)
+       return ImageTag.objects.filter(file = self.id)
 
     VALID_IMAGE_EXTENSIONS = [
         ".jpg",
@@ -76,29 +66,17 @@ class Image(models.Model):
         return any([url.endswith(e) for e in extension_list])
 
     def image_tag(self):
-        return u'<img src="%s" />' % self.image.url
+        return u'<img src="%s" />' % self.file.url
 
-    '''
-    def save(self):
-        #super(ImagePillow, self).save()
-        if not self.image:
-            return
-        if not valid_url_extension(self.image):
-            return
+    # Saving the file
+    @models.permalink
+    def save(self, *args, **kwargs):
+        super(Image, self).save(*args, **kwargs)
 
-        thumb_io = self.image
-        # Create a file-like object to write thumb data (thumb data previously created
-        # using Pillow, and stored in variable 'thumb')
-        thumb_io = StringIO.StringIO()
-        thumb.save(thumb_io, format='JPEG')
-
-        thumb_file = ContentFile(thumb_io.getvalue())
-        image = ImagePillow.open(thumb_io)
-        ratio_height = (890 * self.image_height) / self.image_width
-        size = (890, ratio_height)
-        image = image.resize(size, ImagePillow.ANTIALIAS)
-        image.save(self.path_name)
-    '''
+    def delete(self, *args, **kwargs):
+        """delete -- Remove to leave file."""
+        self.file.delete(False)
+        super(Image, self).delete(*args, **kwargs)
 
 class Tag(models.Model):
     # Nombre del titulo del tag

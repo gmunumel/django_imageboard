@@ -106,7 +106,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-                #os.path.join(BASE_DIR, 'public/templates')
+                os.path.join(PROJECT_DIR, 'templates')
             ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -151,13 +151,25 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
+    # The next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+
+    # The next line to enable whoosh search
+    # using haystack
     'haystack',
 
+    # The next line to enable jquery upload
+    'jfu',
+
+    # The next line to enable the app
     'imageboard',
+)
+
+# To full enable django-jfu (jfu) for jquery upload images
+# source: https://github.com/Alem/django-jfu
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+    'django.core.context_processors.static',
 )
 
 # A sample logging configuration. The only tangible logging

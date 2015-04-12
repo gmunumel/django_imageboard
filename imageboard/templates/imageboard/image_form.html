@@ -1,7 +1,11 @@
-<!-- Load static file -->
-{% load staticfiles %}
-<!-- Bootstrap styles -->
+{% extends "base.html" %}
 
+{% load filters_tags %}
+
+{% block title %}My amazing Imageboard{% endblock %}
+
+{% load staticfiles %}
+{% block stylesheet %}
 <link rel="stylesheet" href="{% static "css/fileupload/bootstrap.min.css" %}">
 
 <!-- Generic page styles -->
@@ -12,7 +16,9 @@
 <link rel="stylesheet" href="{% static "css/fileupload/jquery.fileupload-ui.css" %}">
 <!-- CSS adjustments for browsers with JavaScript disabled -->
 <noscript><link rel="stylesheet" href="{% static "css/fileupload/jquery.fileupload-ui-noscript.css" %}"></noscript>
+{% endblock %}
 
+{% block content %}
 <div class="container">
     <!-- The file upload form used as target for the file upload widget -->
     <form id="fileupload" method="post" action="." enctype="multipart/form-data">{% csrf_token %}
@@ -57,7 +63,9 @@
         <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
     </form>
 </div>
+{% endblock %}
 
+{% block javascripts %}
 <!--
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 -->
@@ -100,3 +108,4 @@
 <!--[if gte IE 8]>
 <script src="{% static "js/fileupload/cors/jquery.xdr-transport.js" %}"></script>
 <![endif]-->
+{% endblock %}

@@ -17,7 +17,7 @@ def order_name(name):
     return name[:10] + "..." + name[-7:]
 
 
-def serialize(instance, file_attr='image'):
+def serialize(instance, file_attr='file'):
     """serialize -- Serialize a Picture instance into a dict.
 
     instance -- Image instance
@@ -25,14 +25,22 @@ def serialize(instance, file_attr='image'):
 
     """
     obj = getattr(instance, file_attr)
-    return {
-        'url': obj.url,
-        'name': order_name(obj.name),
-        'type': mimetypes.guess_type(obj.path)[0] or 'image/png',
-        'thumbnailUrl': obj.url,
-        'size': obj.size,
-        'deleteUrl': reverse('upload-delete', args=[instance.pk]),
-        'deleteType': 'DELETE',
-    }
-
+    try:
+      return {
+          'url': obj.url,
+          'name': order_name(obj.name),
+          'type': mimetypes.guess_type(obj.path)[0] or 'image/png',
+          'thumbnailUrl': obj.url,
+          'size': obj.size,
+          'deleteUrl': reverse('upload-delete', args=[instance.pk]),
+          'deleteType': 'DELETE',
+      }
+    finally:
+      return {
+        'url': '',
+        'name': order_name(''),
+        'type': mimetypes.guess_type('')[0] or 'image/png',
+        'thumbnailUrl': '',
+        'size': 0,
+      }
 
