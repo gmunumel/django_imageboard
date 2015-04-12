@@ -13,7 +13,7 @@ class ImageAdmin(admin.ModelAdmin):
         (None,               {'fields': ['path_name']}),
         ('Optional', {'fields': ['description', 'author', 'translated_by'], 'classes': ['collapse']}),
         ('Dowload Links', {'fields': ['download_link1', 'download_link2', 'download_link3'], 'classes': ['collapse']}),
-        (None,               {'fields': ['image']}),
+        (None,               {'fields': ['file']}),
     ]
     inlines = [ImageTagInline]
     list_display = ('name', 'description', 'author', 'translated_by', 'uploaded_date')

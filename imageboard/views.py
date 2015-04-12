@@ -231,6 +231,15 @@ def ajax_save_tags(request):
     else:
         raise Http404
 
+#######################
+#  to test jfu functionality
+#######################
+def jfu_test(request):
+
+    template = 'images/jfu_test.html'
+    data = {
+    }
+    return render_to_response(template, data, context_instance=RequestContext(request))
 
 #######################
 #  uploaded files
@@ -247,7 +256,7 @@ def upload( request ):
     instance = Image( file = file )
     instance.save()
 
-    basename = os.path.basename( instance.file.path )
+    basename = os.path.basename( instance.image.path )
 
     file_dict = {
         'name' : basename,

@@ -1,4 +1,3 @@
-#from django.contrib.admin.filterspecs import FilterSpec, RelatedFilterSpec
 from django.db import models
 from django.conf import settings
 import os
@@ -34,11 +33,11 @@ class Image(models.Model):
     #image_width = models.PositiveIntegerField(editable=False, null=True)
     # The image
     # source: http://stackoverflow.com/questions/19371286/django-admin-image-upload-not-saving-on-database
-    image = models.ImageField(upload_to=MEDIA_URL)
+    file = models.ImageField(upload_to=MEDIA_URL)
                               #width_field="image_width",height_field="image_height")
 
     def __unicode__(self):
-        return self.image.name
+        return self.file.name
 
     def get_absolute_url(self):
         return ('upload-new', )
@@ -66,7 +65,7 @@ class Image(models.Model):
         return any([url.endswith(e) for e in extension_list])
 
     def image_tag(self):
-        return u'<img src="%s" />' % self.image.url
+        return u'<img src="%s" />' % self.file.url
 
 class Tag(models.Model):
     # Nombre del titulo del tag

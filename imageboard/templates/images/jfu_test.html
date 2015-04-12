@@ -1,0 +1,44 @@
+<html>
+<head>
+
+    <title>Django JFU</title>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+          padding-top: 100px;
+        }
+    </style> 
+
+</head>
+
+  <body>
+
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Django-JFU</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="hero-unit">
+        {% load jfutags %}
+        {% jfu 'images/imageboard_upload_form.html' %}
+      </div>
+    </div>
+
+    </div>
+
+   <hr>
+
+  <footer>
+    <p>&copy; <a href='http://cidola.com'>Cidola</a> 2013 </p>
+  </footer>
+
+</body>
+</html>
+

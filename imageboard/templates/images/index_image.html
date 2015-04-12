@@ -30,7 +30,8 @@
       <a href="{% url 'imageboard:image_details' image.id %}" class="link" ></a>
       <ul class="slides">
         {% for cy_image in image.find_all_images %}
-        <li><a title="" href="{% url 'imageboard:image_details' image.id %}"><img class="imagehover" alt="" src="{% static "media/" %}{{ cy_image }}" /></a></li>
+        <li><a title="" href="{% url 'imageboard:image_details' image.id %}">
+              <img class="imagehover" alt="" src="{% static "media/" %}{{ cy_image }}" /></a></li>
         {% endfor %}
       </ul>
     </div>
