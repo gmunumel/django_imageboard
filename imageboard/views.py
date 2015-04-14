@@ -238,11 +238,13 @@ def ajax_save_tags(request):
 def list_folders(request):
     message = ""
     list_folders = Image.objects.all()
-    for i in list_tags:
+    for i in list_folders:
         message = message + i.name + "~"
     if not request.is_ajax():
         raise Http404
+    #return message
     return HttpResponse(message)
+    #return JsonResponse({'foo': 'bar'})
 
 #######################
 #  uploaded files

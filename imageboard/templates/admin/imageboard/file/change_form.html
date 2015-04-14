@@ -26,10 +26,15 @@
   {% endcomment %}
   {% load jfutags %}
   {% jfu 'imageboard/imageboard_upload_form.html' %}
-  <div class="alert alert-danger" role="alert" style="display: none;">
+  <div class="alert alert-danger folder" role="alert" style="display: none;">
     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
     <span class="sr-only">Error:</span>
         Folder cannot be empty
+  </div>
+  <div class="alert alert-danger no-server" role="alert" style="display: none;">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+        Cannot get list of folders
   </div>
   <div class="form-group">
     <div class="col-xs-3">
@@ -81,34 +86,24 @@
                       xhr.setRequestHeader("X-CSRFToken", csrftoken);
                   }
               }
-          });
+         });
           
-          var availableTags = [
-            "ActionScript",
-            "AppleScript",
-            "Asp",
-            "BASIC",
-            "C",
-            "C++",
-            "Clojure",
-            "COBOL",
-            "ColdFusion",
-            "Erlang",
-            "Fortran",
-            "Groovy",
-            "Haskell",
-            "Java",
-            "JavaScript",
-            "Lisp",
-            "Perl",
-            "PHP",
-            "Python",
-            "Ruby",
-            "Scala",
-            "Scheme"
-          ];
-          $( "#folder" ).autocomplete({
-            source: availableTags
+         // Populated list of folders 
+         availableFolders = [];
+         $.ajax({
+            type: "GET",
+            url: "/imageboard/image/list-folders/",
+            success: function (result) {
+                availableFolders = result.split("~");
+                $( "#folder" ).autocomplete({
+                  source: availableFolders
+                });
+            },
+            error: function (response) {
+              $('.alert.no-server').show( "slow", function() {
+                // Animation complete.
+              });
+            }
           });
 
           $('form#fileupload').bind('fileuploadsubmit', function (e, data) {
@@ -116,7 +111,7 @@
             data.formData = { 'folder': folder };
             if (!data.formData.folder) {
               data.context.find('button').prop('disabled', false);
-              $('.alert').show( "slow", function() {
+              $('.alert.folder').show( "slow", function() {
                 // Animation complete.
               });
               return false;
