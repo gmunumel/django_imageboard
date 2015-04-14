@@ -54,9 +54,16 @@ Bootstrap CSS Toolkit styles
 
 {% endblock %}
 
-{% block MODAL_GALLERY %}
+{% block UPLOAD_FORM_BUTTON_BAR_ADD_EXTRA %}
+{% comment %}
+ Added hidden input to storage the name of the file 
+{% endcomment %}
+<input id="image_name" type="hidden" name="image_name" value="">
 {% endblock %}
 
+
+{% block MODAL_GALLERY %}
+{% endblock %}
 
 {% block JS_JQUERY %}
 {% comment %}
@@ -169,4 +176,10 @@ The File Upload validation plugin
 <!--[if gte IE 8]>
 <script src="{% static "jfu/js/cors/jquery.xdr-transport.js" %}"></script>
 <![endif]-->
+{% endblock %}
+
+{% block JS_EXTRA %}
+{% comment %}
+  Add extra JS
+{% endcomment %}
 {% endblock %}

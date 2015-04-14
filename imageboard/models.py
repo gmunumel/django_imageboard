@@ -10,34 +10,26 @@ class Image(models.Model):
     # Name image
     name = models.CharField(max_length=100)
     # Description
-    description = models.CharField(max_length=200, null=True)
+    description = models.CharField(max_length=200, null=True, blank=True)
     # author of the image
-    author = models.CharField(max_length=100, null=True)
+    author = models.CharField(max_length=100, null=True, blank=True)
     # traduction (if any)
-    translated_by = models.CharField(max_length=100, null=True)
+    translated_by = models.CharField(max_length=100, null=True, blank=True)
     # date of the work
-    uploaded_date = models.DateTimeField('date published')
+    uploaded_date = models.DateTimeField('date published', null=True, blank=True)
     # uploader
-    uploaded_by = models.CharField(max_length=100)
+    uploaded_by = models.CharField(max_length=100, null=True, blank=True)
     # path_name: path of the image
-    path_name = models.CharField(max_length=200)
+    path_name = models.CharField(max_length=200, null=True, blank=True)
     # Download link 1 of the collections of images
-    download_link1 = models.CharField(max_length=250, null=True)
+    download_link1 = models.CharField(max_length=250, null=True, blank=True)
     # Download link 2 of the collections of images
-    download_link2 = models.CharField(max_length=250, null=True)
+    download_link2 = models.CharField(max_length=250, null=True, blank=True)
     # Download link 3 of the collection of images
-    download_link3 = models.CharField(max_length=250, null=True)
-    # Image height
-    #image_height = models.PositiveIntegerField(editable=False, null=True)
-    # Image width
-    #image_width = models.PositiveIntegerField(editable=False, null=True)
-    # The image
-    # source: http://stackoverflow.com/questions/19371286/django-admin-image-upload-not-saving-on-database
-    file = models.FileField(upload_to=MEDIA_ROOT)
-                              #width_field="image_width",height_field="image_height")
+    download_link3 = models.CharField(max_length=250, null=True, blank=True)
 
     def __unicode__(self):
-        return self.file.name
+        return self.name
 
     def find_all_images(self):
         list_files = []
@@ -49,20 +41,20 @@ class Image(models.Model):
     def tags_per_image(self):
        return ImageTag.objects.filter(image = self.id)
 
-    VALID_IMAGE_EXTENSIONS = [
-        ".jpg",
-        ".jpeg",
-        ".png",
-        ".gif",
-    ]
+# source: http://stackoverflow.com/a/11814746/992347
+def get_path(instance, filename): 
+    path = os.path.join(MEDIA_ROOT, instance.folder)
+    if not os.path.exists(path):
+      os.makedirs(path)
+    return os.path.join(path, filename)
 
-    # Source: http://timmyomahony.com/blog/upload-and-validate-image-from-url-in-django/
-    def valid_url_extension(url, extension_list=VALID_IMAGE_EXTENSIONS):
-        # http://stackoverflow.com/a/10543969/396300
-        return any([url.endswith(e) for e in extension_list])
+class File(models.Model):
+    folder = models.CharField(max_length=255)
+    # source: http://stackoverflow.com/questions/19371286/django-admin-image-upload-not-saving-on-database
+    file = models.ImageField(upload_to=get_path, null=True, blank=True)
 
-    def image_tag(self):
-        return u'<img src="%s" />' % self.file.url
+    def __unicode__(self):
+        return self.file.path
 
 class Tag(models.Model):
     # Nombre del titulo del tag

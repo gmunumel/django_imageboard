@@ -15,13 +15,12 @@ from datetime import datetime
 
 from jfu.http import upload_receive, UploadResponse, JFUResponse
 
-from imageboard.models import Image, ImageTag, Tag
+from imageboard.models import Image, ImageTag, Tag, File
 
 from math import log
 
-
-# MEDIA_URL
 MEDIA_URL = settings.MEDIA_URL
+MEDIA_ROOT = settings.MEDIA_ROOT
 
 # Maximun number of images per page
 IMAGES_PER_PAGE = 5
@@ -82,7 +81,7 @@ def index(request):
     # Tagcloud
     tag_cloud = tagcloud()
 
-    template = 'images/index_image.html'
+    template = 'imageboard/index_image.html'
     data = {
         'latest_image_list': pag_images.object_list,
         'paginator_images': pag_images,
@@ -99,7 +98,7 @@ def detail(request, image_id):
     # Tagcloud
     tag_cloud = tagcloud()
 
-    template = 'images/detail_image.html'
+    template = 'imageboard/detail_image.html'
     data = {
         'image': image,
         'tagcloud': tag_cloud
@@ -115,7 +114,7 @@ def ib_large(request, image_id):
     # Paginator
     pag_images = paginator_exe(request, image.find_all_images(),1)
 
-    template = 'images/ib_large_image.html'
+    template = 'imageboard/ib_large_image.html'
     data = {
         'image': image,
         'pag_image': pag_images
@@ -176,7 +175,7 @@ def images_wo_tags(request):
     # Tagcloud
     tag_cloud = tagcloud()
 
-    template = 'images/images_wo_tags.html'
+    template = 'imageboard/images_wo_tags.html'
 
     data = {
         'image_wo_tags_list': pag_images.object_list,
@@ -187,7 +186,7 @@ def images_wo_tags(request):
     return render_to_response(template, data, context_instance=RequestContext(request))
 
 #######################
-#  list_tags
+#  ajax list_tags
 #######################
 def list_tags(request):
     message = ""
@@ -225,7 +224,7 @@ def ajax_save_tags(request):
 
         list_tags = Image.objects.get(pk=image_id).tags_per_image()
 
-        template = 'images/list_tags.html'
+        template = 'imageboard/list_tags.html'
         data = {
             'tags': list_tags
         }
@@ -234,14 +233,16 @@ def ajax_save_tags(request):
         raise Http404
 
 #######################
-#  to test jfu functionality
+#  ajax list_folders
 #######################
-def jfu_test(request):
-
-    template = 'images/jfu_test.html'
-    data = {
-    }
-    return render_to_response(template, data, context_instance=RequestContext(request))
+def list_folders(request):
+    message = ""
+    list_folders = Image.objects.all()
+    for i in list_tags:
+        message = message + i.name + "~"
+    if not request.is_ajax():
+        raise Http404
+    return HttpResponse(message)
 
 #######################
 #  uploaded files
@@ -254,22 +255,25 @@ def upload( request ):
     # If multiple files can be uploaded simulatenously,
     # 'file' may be a list of files.
     file = upload_receive( request )
+    folder = request.POST['folder']
   
-    instance = Image( file = file )
-    basename = os.path.basename( instance.file.path )
-
-    instance.name = basename
-    instance.uploaded_date = datetime.now()
-    instance.uploaded_by = 'admin'
-    instance.path_name = basename
+    print "folder is: " + folder
+    print "MEDIA_URL: " + MEDIA_URL + folder
+    print "MEDIA_ROOT: " + MEDIA_ROOT + folder
+    
+    instance = File( folder = folder, file = file ) 
     instance.save()
+    
+    basename = os.path.basename( instance.file.path )
+    basename_path = os.path.join(MEDIA_URL, folder, basename)
+    print basename
 
     file_dict = {
         'name' : basename,
         'size' : file.size,
 
-        'url': MEDIA_URL + basename,
-        'thumbnailUrl': MEDIA_URL + basename,
+        'url': basename_path,
+        'thumbnailUrl': basename_path,
 
         'deleteUrl': reverse('jfu_delete', kwargs = { 'pk': instance.pk }),
         'deleteType': 'POST',
@@ -284,10 +288,10 @@ def upload( request ):
 def upload_delete( request, pk ):
     success = True
     try:
-        instance = Image.objects.get( pk = pk )
+        instance = File.objects.get( pk = pk )
         os.unlink( instance.file.path )
         instance.delete()
-    except Image.DoesNotExist:
+    except File.DoesNotExist:
         success = False
 
     return JFUResponse( request, success )

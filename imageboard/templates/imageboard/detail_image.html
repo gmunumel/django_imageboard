@@ -6,16 +6,15 @@
 
 {% load staticfiles %}
 {% block stylesheet %}
-<link rel="stylesheet" href="{% static "css/style.css" %}" type="text/css" media="screen" />
-<link rel="stylesheet" href="{% static "css/css_pirobox/style.css" %}" type="text/css" media="screen" />
-<link rel="stylesheet" href="{% static "css/jquery.ui.autocomplete.custom.css" %}" type="text/css" media="screen" />
+<link rel="stylesheet" href="{% static "imageboard/css/css_pirobox/style.css" %}" type="text/css" media="screen" />
+<link rel="stylesheet" href="{% static "imageboard/css/jquery.ui.autocomplete.custom.css" %}" type="text/css" media="screen" />
 {% endblock %}
 {% block javascripts %}
-<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/pirobox_extended.js" %}"></script>
-<script type="text/javascript" src="{% static "js/jquery-ui-1.8.core-and-interactions.min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/jquery-ui-1.8.autocomplete.min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/tag-it.js" %}"></script>
+<script type="text/javascript" src="{% static "imageboard/js/jquery.min.js" %}"></script>
+<script type="text/javascript" src="{% static "imageboard/js/pirobox_extended.js" %}"></script>
+<script type="text/javascript" src="{% static "imageboard/js/jquery-ui-1.8.core-and-interactions.min.js" %}"></script>
+<script type="text/javascript" src="{% static "imageboard/js/jquery-ui-1.8.autocomplete.min.js" %}"></script>
+<script type="text/javascript" src="{% static "imageboard/js/tag-it.js" %}"></script>
 <script type="text/javascript">
 $(document).ready(function() {
     $.piroBox_ext({

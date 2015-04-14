@@ -175,7 +175,7 @@ aside.footer-column
 	width: 430px;
 	padding: 20px;
 }
-
+*/
 
 section#copyright
 {
@@ -233,7 +233,7 @@ td
 }
 
 
-/*  CCS for rotate images
+/*  CCS para las imagenes que rotan
     ----------------------------------*/
 .slideshow-block{
 	float: right;

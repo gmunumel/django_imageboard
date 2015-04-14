@@ -65,6 +65,14 @@ STATIC_ROOT = PROJECT_DIR + '/static/'
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    #os.path.join(PROJECT_DIR, 'imageboard/static/'),
+)
+
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = STATIC_ROOT + 'media/'
@@ -73,14 +81,6 @@ MEDIA_ROOT = STATIC_ROOT + 'media/'
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = STATIC_URL + 'media/'
-
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    #os.path.join(BASE_DIR, 'public/static'),
-)
 
 # List of finder classes that know how to find static files in
 # various locations.

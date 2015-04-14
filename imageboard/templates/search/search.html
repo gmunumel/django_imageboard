@@ -4,11 +4,10 @@
 
 {% load staticfiles %}
 {% block stylesheet %}
-<link rel="stylesheet" href="{% static "css/style.css" %}" type="text/css" media="screen" />
 {% endblock %}
 {% block javascripts %}
-<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/jquery.cycle.all.js" %}"></script>
+<script type="text/javascript" src="{% static "imageboard/js/jquery.min.js" %}"></script>
+<script type="text/javascript" src="{% static "imageboard/js/jquery.cycle.all.js" %}"></script>
 <script type="text/javascript">
 jQuery(function($){
     // Cycle plugin

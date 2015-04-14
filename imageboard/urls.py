@@ -23,19 +23,14 @@ urlpatterns = [
 
     # images without tags urls
     url(r'^imageboard/wo-tags/$', views.images_wo_tags, name = 'image_wo_tags_index'),
+
+    # ajax list tags
     url(r'^imageboard/wo-tags/list-tags/$', views.list_tags, name = 'image_wo_tags_list'),
 
     # ajax ajax_save_tags
     url(r'^imageboard/wo-tags/ajax-save-tags/$', views.ajax_save_tags, name = 'ajax_save_tags'),
 
-    # To test jfu
-    url(r'^imageboard/image/jfu/test/$', views.jfu_test, name = 'jfu_test' ),
-
-    # To upload files
-    #url(r'^upload/$', views.upload, name = 'jfu_upload' ),
-
-    # You may optionally define a delete url as well
-    #url(r'^delete/(?P\d+)$', views.upload_delete, name = 'jfu_delete' ),
-
+    # ajax list folder
+    url(r'^imageboard/image/list-folders/$', views.list_folders, name = 'image_folders_list'),
 ]
 

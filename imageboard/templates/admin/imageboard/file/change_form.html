@@ -1,0 +1,128 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls admin_static admin_modify %}
+
+
+{% block extrastyle %}
+  {{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
+  <link rel="stylesheet" type="text/css" href="{% static "imageboard/css/jquery-ui.min.css" %}" />
+  <link rel="stylesheet" type="text/css" href="{% static "jfu/css/bootstrap.min.css" %}" />
+{% endblock %}
+
+{% block object-tools %}
+{% if change %}{% if not is_popup %}
+  <ul class="object-tools">
+    {% block object-tools-items %}
+    <li>
+        {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
+        <a href="{% add_preserved_filters history_url %}" class="historylink">{% trans "History" %}</a>
+    </li>
+    {% if has_absolute_url %}<li><a href="{{ absolute_url }}" class="viewsitelink">{% trans "View on site" %}</a></li>{% endif %}
+    {% endblock %}
+  </ul>
+{% endif %}{% endif %}
+  
+  {% comment %}
+    Added jfu support
+  {% endcomment %}
+  {% load jfutags %}
+  {% jfu 'imageboard/imageboard_upload_form.html' %}
+  <div class="alert alert-danger" role="alert" style="display: none;">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+        Folder cannot be empty
+  </div>
+  <div class="form-group">
+    <div class="col-xs-3">
+      <label for="folder">Folder:</label>
+      <input class="form-control autocomplete" id="folder" name="folder" 
+            type="text" placeholder="Folder to storage the images" />
+    </div>
+  </div>
+{% endblock %}
+
+{% block field_sets %}{% endblock %}
+
+{% block submit_buttons_bottom %}{% endblock %}
+
+
+{% block admin_change_form_document_ready %}
+    <script src="{% static "imageboard/js/jquery-ui.min.js" %}"></script>
+    <script src="{% static "imageboard/js/jquery.cookie.js" %}"></script>
+    <script type="text/javascript">
+        (function($) {
+            $(document).ready(function() {
+                $('.add-another').click(function(e) {
+                    e.preventDefault();
+                    showAddAnotherPopup(this);
+                });
+                $('.related-lookup').click(function(e) {
+                    e.preventDefault();
+                    showRelatedObjectLookupPopup(this);
+                });
+                {% if adminform and add %}
+                    $('form#{{ opts.model_name }}_form :input:visible:enabled:first').focus()
+                {% endif %}
+
+            });
+        })(django.jQuery);
+        
+        // Setting formData on upload start
+        $(document).ready(function() {
+
+          var csrftoken = $.cookie('csrftoken');
+
+          function csrfSafeMethod(method) {
+              // these HTTP methods do not require CSRF protection
+              return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+          }
+          $.ajaxSetup({
+              beforeSend: function(xhr, settings) {
+                  if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                      xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                  }
+              }
+          });
+          
+          var availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+          ];
+          $( "#folder" ).autocomplete({
+            source: availableTags
+          });
+
+          $('form#fileupload').bind('fileuploadsubmit', function (e, data) {
+            var folder = $('#folder').val();           
+            data.formData = { 'folder': folder };
+            if (!data.formData.folder) {
+              data.context.find('button').prop('disabled', false);
+              $('.alert').show( "slow", function() {
+                // Animation complete.
+              });
+              return false;
+            }
+            //return false;
+          });
+        });
+    </script>
+{% endblock %}

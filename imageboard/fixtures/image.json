@@ -1,3 +1,16 @@
 [
-{ "model": "imageboard.image","pk":1, "fields":{ "name": "Miscelaneos", "description": "", "author": "", "translated_by": "", "uploaded_date": "2008-05-27 00:00:00","uploaded_by": "John Doe", "path_name": "Miscelaneos", "download_link1": "", "download_link2": "", "download_link3": ""} }
+{ "model": "imageboard.image","pk":1, "fields":
+      { 
+         "name": "Miscelaneos", 
+         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vehicula sodales dolor vitae pellentesque. Vestibulum non urna nisi, et viverra nunc. Suspendisse vel posuere tellus. Praesent nec ligula dolor, vel lobortis ligula. Donec fringilla adipiscing elit tempus dignissim.", 
+         "author": "Author", 
+         "translated_by": "", 
+         "uploaded_date": "2008-05-27 00:00:00",
+         "uploaded_by": "Uploader", 
+         "path_name": "Miscelaneos", 
+         "download_link1": "", 
+         "download_link2": "", 
+         "download_link3": ""
+      }
+}
 ]
