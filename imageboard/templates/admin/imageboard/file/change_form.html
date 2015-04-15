@@ -26,7 +26,12 @@
   {% endcomment %}
   {% load jfutags %}
   {% jfu 'imageboard/imageboard_upload_form.html' %}
-  <div class="alert alert-danger folder" role="alert" style="display: none;">
+  <div class="alert alert-danger folder-no-exist" role="alert" style="display: none;">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+        Folder name is not saved. Please choose other
+  </div>
+  <div class="alert alert-danger folder-empty" role="alert" style="display: none;">
     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
     <span class="sr-only">Error:</span>
         Folder cannot be empty
@@ -114,6 +119,8 @@
           // On submit of the fileupload
           $('form#fileupload').bind('fileuploadsubmit', function (e, data) {
             
+            // For each file check that we have
+            // the right image format
             var ret = false;
             $.each(data.files, function (index, file) {
               fileName = file.name;
@@ -128,6 +135,7 @@
             });
 
             // Stop it!!!
+            // Self check after coming from the each-loop
             if (ret) return false;
 
             // Passing folder as an argument
@@ -137,10 +145,18 @@
             // If folder's name is empty stop execution
             if (folder == '' && !data.formData.folder) {
               //data.context.find('button').prop('disabled', false);
-              $('.alert.folder').show( "slow", function() { /* Animation complete. */ });
+              $('.alert.folder-empty').show( "slow", function() { /* Animation complete. */ });
               return false;
             } else {
-              $('.alert.folder').hide( "slow", function() { /* Animation complete. */ });
+              $('.alert.folder-empty').hide( "slow", function() { /* Animation complete. */ });
+            }
+
+            // Check folder name is valid
+            if ($.inArray(folder, availableFolders) == -1) {
+              $('.alert.folder-no-exist').show( "slow", function() { /* Animation complete. */ });
+              return false;
+            } else {
+              $('.alert.folder-no-exist').hide( "slow", function() { /* Animation complete. */ });
             }
       
           });
