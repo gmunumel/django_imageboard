@@ -51,4 +51,4 @@ Useful db commands
 
 
     > All (using production environment)
-      ./manage.py sqlclear imageboard --settings=imageboard.settings.production | ./manage.py dbshell --settings=imageboard.settings.production && ./manage.py migrate --settings=imageboard.settings.production && ./manage.py loaddata tag --settings=imageboard.settings.production && ./manage.py loaddata image --settings=imageboard.settings.production && ./manage.py loaddata imagetag --settings=imageboard.settings.production && ./manage.py rebuild_index --settings=imageboard.settings.production
+      heroku run './manage.py sqlclear imageboard --settings=imageboard.settings.production | ./manage.py dbshell --settings=imageboard.settings.production && ./manage.py migrate --settings=imageboard.settings.production && ./manage.py loaddata tag --settings=imageboard.settings.production && ./manage.py loaddata image --settings=imageboard.settings.production && ./manage.py loaddata imagetag --settings=imageboard.settings.production && ./manage.py rebuild_index --settings=imageboard.settings.production'
