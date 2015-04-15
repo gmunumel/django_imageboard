@@ -57,7 +57,7 @@ class File(models.Model):
         return self.file.path
 
 class Tag(models.Model):
-    # Nombre del titulo del tag
+    # Name of the tag
     title = models.CharField(max_length=100)
     images_per_tag = models.ManyToManyField(Image, through='ImageTag')
 
@@ -68,7 +68,7 @@ class Tag(models.Model):
         return MEDIA_ROOT + self.title + ".png"
 
 class ImageTag(models.Model):
-    # Relacion a Image
+    # Relation with Image
     image = models.ForeignKey(Image)
-    # Relacion a Tag
+    # Relation with Tag
     tag = models.ForeignKey(Tag)
