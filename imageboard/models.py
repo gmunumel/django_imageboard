@@ -10,7 +10,7 @@ class Image(models.Model):
     # Name image
     name = models.CharField(max_length=100)
     # Description
-    description = models.CharField(max_length=200, null=True, blank=True)
+    description = models.CharField(max_length=1024, null=True, blank=True)
     # author of the image
     author = models.CharField(max_length=100, null=True, blank=True)
     # traduction (if any)

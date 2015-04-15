@@ -12,6 +12,9 @@ Using Django Version 1.8
 
 Useful db commands
 
+    > Connect to postgres
+      psql -u root
+
     > Run server
       ./manage.py runserver PORT
 
