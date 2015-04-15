@@ -242,9 +242,7 @@ def list_folders(request):
         message = message + i.name + "~"
     if not request.is_ajax():
         raise Http404
-    #return message
     return HttpResponse(message)
-    #return JsonResponse({'foo': 'bar'})
 
 #######################
 #  uploaded files
