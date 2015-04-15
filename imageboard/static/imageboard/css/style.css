@@ -219,7 +219,7 @@ section#templatecopy a
 
 .imagehover
 {
-	height: 340px;
+	height: 200px; 
 	width: 300px;
 }
 
@@ -291,7 +291,7 @@ section#templatecopy a
     cursor: pointer;
 }
 
-/*  CCS para las imagenes que rotan
+/*  CCS to rotated images
     ----------------------------------*/
 .slideshow-block{
 	float: right;
@@ -304,3 +304,8 @@ section#templatecopy a
 	visibility:visible;
 }
 /* End Footer Styles */
+
+
+article.main {
+  height: 250px;
+}

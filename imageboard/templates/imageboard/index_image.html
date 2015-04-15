@@ -15,7 +15,7 @@
 <section id="content">
   {% if latest_image_list %}
   {% for image in latest_image_list %}
-  <article>
+  <article class="main">
     <h2><a href="{% url 'imageboard:image_details' image.id %}">{{ image.name }}</a></h2>
     <div class="header-block">
        Author: 
@@ -41,7 +41,7 @@
     </div>
     <p>{{ image.description }}</p>
   </article>
-  <br /> 
+  <br /> <br /> <br /> 
   <hr />
   {% endfor %}
   {% endif %}

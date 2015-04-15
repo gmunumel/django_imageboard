@@ -258,17 +258,12 @@ def upload( request ):
     # 'file' may be a list of files.
     file = upload_receive( request )
     folder = request.POST['folder']
-  
-    print "folder is: " + folder
-    print "MEDIA_URL: " + MEDIA_URL + folder
-    print "MEDIA_ROOT: " + MEDIA_ROOT + folder
     
     instance = File( folder = folder, file = file ) 
     instance.save()
     
     basename = os.path.basename( instance.file.path )
     basename_path = os.path.join(MEDIA_URL, folder, basename)
-    print basename
 
     file_dict = {
         'name' : basename,

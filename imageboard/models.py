@@ -33,8 +33,8 @@ class Image(models.Model):
 
     def find_all_images(self):
         list_files = []
-        for files in os.listdir(MEDIA_ROOT + self.path_name):
-            list_files.append(self.path_name + "/" + files)
+        for files in os.listdir(MEDIA_ROOT + self.name):
+            list_files.append(self.name + "/" + files)
         list_files.sort()
         return list_files
 
