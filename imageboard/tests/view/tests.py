@@ -50,54 +50,54 @@ class ImageboardTestCase(TestCase):
 
   # imageboard tests
   def test_image_index(self):
-    response = self.c.get(reverse('imageboard:image_index'))
+    response = self.c.get(reverse('image_index'))
     self.assertEqual(response.status_code, 200)
 
   def test_image_details(self):
-    response = self.c.get(reverse('imageboard:image_details', args=(self.image.pk,)))
+    response = self.c.get(reverse('image_details', args=(self.image.pk,)))
     self.assertEqual(response.status_code, 200)
 
   def test_image_big_index(self):
-    response = self.c.get(reverse('imageboard:image_big_index', args=(self.image.pk,)))
+    response = self.c.get(reverse('image_big_index', args=(self.image.pk,)))
     self.assertEqual(response.status_code, 200)
 
   def test_image_wo_tags_index(self):
-    response = self.c.get(reverse('imageboard:image_wo_tags_index'))
+    response = self.c.get(reverse('image_wo_tags_index'))
     self.assertEqual(response.status_code, 200)
 
   def test_image_wo_tags_list(self):
 
     # bad case
-    response = self.c.get(reverse('imageboard:image_wo_tags_list'))
+    response = self.c.get(reverse('image_wo_tags_list'))
     self.assertEqual(response.status_code, 404)
 
     # good case
-    response = self.c.get(reverse('imageboard:image_wo_tags_list'), 
+    response = self.c.get(reverse('image_wo_tags_list'), 
                           HTTP_X_REQUESTED_WITH='XMLHttpRequest')
     self.assertEqual(response.status_code, 200)
 
   def test_ajax_save_tags(self):
   
     # bad case
-    response = self.c.get(reverse('imageboard:ajax_save_tags'))
+    response = self.c.get(reverse('ajax_save_tags'))
     self.assertEqual(response.status_code, 404)
 
     # good case
-    response = self.c.get(reverse('imageboard:ajax_save_tags'), 
+    response = self.c.get(reverse('ajax_save_tags'), 
                           {'idimage': self.image.pk, 'tags': self.tag.title },
                           HTTP_X_REQUESTED_WITH='XMLHttpRequest')
     self.assertEqual(response.status_code, 200)
 
   def test_image_folders_list(self):
-    response = self.c.get(reverse('imageboard:image_folders_list'),
+    response = self.c.get(reverse('image_folders_list'),
                           HTTP_X_REQUESTED_WITH='XMLHttpRequest')
     self.assertEqual(response.status_code, 200)
 
   # tags view tests
   def test_tag_index(self):
-    response = self.c.get(reverse('imageboard:tag_index'))
+    response = self.c.get(reverse('tag_index'))
     self.assertEqual(response.status_code, 200)
 
   def test_tag_details(self):
-    response = self.c.get(reverse('imageboard:tag_details', args=(self.tag.pk,)))
+    response = self.c.get(reverse('tag_details', args=(self.tag.pk,)))
     self.assertEqual(response.status_code, 200)

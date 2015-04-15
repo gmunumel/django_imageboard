@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-<a alt="" href="{% url 'imageboard:image_details' image.id %}">Normal Mode</a>
+<a alt="" href="{% url 'image_details' image.id %}">Normal Mode</a>
 {% for image_f in pag_image.object_list %}
   {% if pag_image.has_next %}
     <a title="" href="?page={{ pag_image.next_page_number }}">

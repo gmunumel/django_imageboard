@@ -1,5 +1,5 @@
 from django.conf.urls import url, include
-#from django.conf import settings
+from django.contrib import admin
 
 from . import views
 
@@ -32,5 +32,11 @@ urlpatterns = [
 
     # index search
     url(r'^search/$', include('haystack.urls')),
+
+    # Uncomment the next line to enable the admin:
+    url(r'^admin/', include(admin.site.urls)),
+
+    url(r'upload/', views.upload, name = 'jfu_upload' ),
+    url(r'^delete/(?P<pk>\d+)$', views.upload_delete, name = 'jfu_delete' ),
 ]
 

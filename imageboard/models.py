@@ -2,7 +2,6 @@ from django.db import models
 from django.conf import settings
 import os
 
-MEDIA_URL = settings.MEDIA_URL
 MEDIA_ROOT = settings.MEDIA_ROOT
 
 # Create your models here.
@@ -33,7 +32,7 @@ class Image(models.Model):
 
     def find_all_images(self):
         list_files = []
-        for files in os.listdir(MEDIA_ROOT + self.name):
+        for files in os.listdir(os.path.join(MEDIA_ROOT, self.name)):
             list_files.append(self.name + "/" + files)
         list_files.sort()
         return list_files

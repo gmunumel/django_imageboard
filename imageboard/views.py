@@ -20,7 +20,6 @@ from imageboard.models import Image, ImageTag, Tag, File
 from math import log
 
 MEDIA_URL = settings.MEDIA_URL
-MEDIA_ROOT = settings.MEDIA_ROOT
 
 # Maximun number of images per page
 IMAGES_PER_PAGE = 5

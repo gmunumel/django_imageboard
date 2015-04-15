@@ -16,7 +16,7 @@
   {% if latest_image_list %}
   {% for image in latest_image_list %}
   <article class="main">
-    <h2><a href="{% url 'imageboard:image_details' image.id %}">{{ image.name }}</a></h2>
+    <h2><a href="{% url 'image_details' image.id %}">{{ image.name }}</a></h2>
     <div class="header-block">
        Author: 
         <a href="#" class="link" >{{ image.author }}</a>
@@ -25,16 +25,16 @@
     <div class="header-block">
       Tags: 
       {% for tag in image.tags_per_image %}
-        <a href="{% url 'imageboard:tag_details' tag.tag.id %}" class="link" >{{ tag.tag }}</a>
+        <a href="{% url 'tag_details' tag.tag.id %}" class="link" >{{ tag.tag }}</a>
         {%if not forloop.last %},{% endif %}
       {% endfor%}
     </div>
     <br />
     <div class="slideshow-block">
-      <a href="{% url 'imageboard:image_details' image.id %}" class="link" ></a>
+      <a href="{% url 'image_details' image.id %}" class="link" ></a>
       <ul class="slides">
         {% for cy_image in image.find_all_images %}
-        <li><a title="" href="{% url 'imageboard:image_details' image.id %}">
+        <li><a title="" href="{% url 'image_details' image.id %}">
               <img class="imagehover" alt="" src="{% static "media/" %}{{ cy_image }}" /></a></li>
         {% endfor %}
       </ul>

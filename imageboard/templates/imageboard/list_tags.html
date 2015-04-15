@@ -1,7 +1,7 @@
 <div class="header-block">
   Tags: 
   {% for tag in tags %}
-  <a href="{% url 'imageboard:tag_details' tag.tag.id %}" class="link" >{{ tag.tag }}</a>
+  <a href="{% url 'tag_details' tag.tag.id %}" class="link" >{{ tag.tag }}</a>
   {%if not forloop.last %},{% endif %}
   {% endfor%}
 </div>

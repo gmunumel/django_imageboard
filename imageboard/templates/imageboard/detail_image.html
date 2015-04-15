@@ -24,7 +24,7 @@ $(document).ready(function() {
       piro_drag :false,
       piro_nav_pos: 'bottom'
     });
-    $.get("{% url 'imageboard:image_wo_tags_list' %}", function(data) {
+    $.get("{% url 'image_wo_tags_list' %}", function(data) {
         //var myArray = [];
         data = data.split('~');
         data.pop();
@@ -38,7 +38,7 @@ $(document).ready(function() {
         if(q.length > 0){
           q = q.replace(/x/g,"");
           q = q.split("\n");
-          $('#list_tags').html('&nbsp;').load('{% url 'imageboard:ajax_save_tags' %}?idimage=' + image_id  + '&tags=' + q);
+          $('#list_tags').html('&nbsp;').load('{% url 'ajax_save_tags' %}?idimage=' + image_id  + '&tags=' + q);
         }
     });
 });
@@ -58,7 +58,7 @@ $(document).ready(function() {
     </table>
   </div>
   <br />
-  <a alt="" href="{% url 'imageboard:image_big_index' image.id %}">Large Mode</a>
+  <a alt="" href="{% url 'image_big_index' image.id %}">Large Mode</a>
   <div id="list_tags"></div>
   <table>
     {% for row in image.find_all_images|tablecols:3 %}
