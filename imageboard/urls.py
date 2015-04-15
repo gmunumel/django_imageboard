@@ -8,13 +8,6 @@ urlpatterns = [
     url(r'^$', views.index, name = 'image_index'),
     url(r'^imageboard/$', views.index, name = 'image_index'),
 
-    # index search
-    url(r'^search/$', include('haystack.urls')),
-
-    # tags urls
-    url(r'^tags/$', views.tags, name = 'tag_index'),
-    url(r'^tag/(?P<tag_id>[0-9]+)/$', views.detail_tags, name = 'tag_details'),
-
     # images urls
     url(r'^imageboard/(?P<image_id>[0-9]+)/$', views.detail, name = 'image_details'),
 
@@ -32,5 +25,12 @@ urlpatterns = [
 
     # ajax list folder
     url(r'^imageboard/image/list-folders/$', views.list_folders, name = 'image_folders_list'),
+
+    # tags urls
+    url(r'^tags/$', views.tags, name = 'tag_index'),
+    url(r'^tag/(?P<tag_id>[0-9]+)/$', views.detail_tags, name = 'tag_details'),
+
+    # index search
+    url(r'^search/$', include('haystack.urls')),
 ]
 
