@@ -48,6 +48,7 @@ class ImageboardTestCase(TestCase):
     if os.path.exists(self.path):
       os.rmdir(self.path)
 
+  # imageboard tests
   def test_image_index(self):
     response = self.c.get(reverse('imageboard:image_index'))
     self.assertEqual(response.status_code, 200)
@@ -71,7 +72,8 @@ class ImageboardTestCase(TestCase):
     self.assertEqual(response.status_code, 404)
 
     # good case
-    response = self.c.get(reverse('imageboard:image_wo_tags_list'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+    response = self.c.get(reverse('imageboard:image_wo_tags_list'), 
+                          HTTP_X_REQUESTED_WITH='XMLHttpRequest')
     self.assertEqual(response.status_code, 200)
 
   def test_ajax_save_tags(self):
@@ -87,6 +89,15 @@ class ImageboardTestCase(TestCase):
     self.assertEqual(response.status_code, 200)
 
   def test_image_folders_list(self):
-    response = self.c.get(reverse('imageboard:image_folders_list'),HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+    response = self.c.get(reverse('imageboard:image_folders_list'),
+                          HTTP_X_REQUESTED_WITH='XMLHttpRequest')
     self.assertEqual(response.status_code, 200)
 
+  # tags view tests
+  def test_tag_index(self):
+    response = self.c.get(reverse('imageboard:tag_index'))
+    self.assertEqual(response.status_code, 200)
+
+  def test_tag_details(self):
+    response = self.c.get(reverse('imageboard:tag_details', args=(self.tag.pk,)))
+    self.assertEqual(response.status_code, 200)
