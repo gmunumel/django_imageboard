@@ -15,6 +15,9 @@ Useful db commands
     > Connect to postgres
       psql -u root
 
+    > Create Admin user
+      ./manage.py createsuperuser --settings=imageboard.settings.local 
+  
     > Run server
       ./manage.py runserver PORT
 
@@ -23,25 +26,29 @@ Useful db commands
       e.g: ./manage.py slqclear imageboard | ./manage.py dbshell
 
     > Sync database
-    ./manage.py migrate
+    ./manage.py migrate --settings=imageboard.settings.local 
 
     > Load fixtures
-      ./manage.py loaddata <fixture name>
+      ./manage.py loaddata <fixture name> --settings=imageboard.settings.local 
       e.g: ./manage.py loaddata tag
           ./manage.py loaddata image
           ./manage.py loaddata imagetag
 
 
     > Reload indexes for searching
-      ./manage.py rebuild_index
+      ./manage.py rebuild_index --settings=imageboard.settings.local 
 
 
     > Update indexes for search
-      ./manage.py update_index
+      ./manage.py update_index --settings=imageboard.settings.local 
 
     > Removing tabs
       tr -d \\t < input > output
       e.g: tr -d \\t < Image\ Fixtures\ -\ Sh\ -\ Sheet1.tsv  > Image\ Fixtures\ -\ Sh\ -\ Sheet1_notabs.tsv
 
-    > All
-      ./manage.py sqlclear imageboard | ./manage.py dbshell && ./manage.py migrate && ./manage.py loaddata tag && ./manage.py loaddata image && ./manage.py loaddata imagetag && ./manage.py rebuild_index 
+    > All (using local environment)
+      ./manage.py sqlclear imageboard --settings=imageboard.settings.local | ./manage.py dbshell --settings=imageboard.settings.local && ./manage.py migrate --settings=imageboard.settings.local && ./manage.py loaddata tag --settings=imageboard.settings.local && ./manage.py loaddata image --settings=imageboard.settings.local && ./manage.py loaddata imagetag --settings=imageboard.settings.local && ./manage.py rebuild_index --settings=imageboard.settings.local
+
+
+    > All (using production environment)
+      ./manage.py sqlclear imageboard --settings=imageboard.settings.production | ./manage.py dbshell --settings=imageboard.settings.production && ./manage.py migrate --settings=imageboard.settings.production && ./manage.py loaddata tag --settings=imageboard.settings.production && ./manage.py loaddata image --settings=imageboard.settings.production && ./manage.py loaddata imagetag --settings=imageboard.settings.production && ./manage.py rebuild_index --settings=imageboard.settings.production
