@@ -36,6 +36,11 @@
     <span class="sr-only">Error:</span>
         Cannot get list of folders
   </div>
+  <div class="alert alert-danger invalid-format" role="alert" style="display: none;">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+        Invalid image format. Use only .gif, .jpg, .jpeg, .png images
+  </div>
   <div class="form-group">
     <div class="col-xs-3">
       <label for="folder">Folder:</label>
@@ -71,11 +76,11 @@
             });
         })(django.jQuery);
         
-        // Setting formData on upload start
+        
         $(document).ready(function() {
 
+          // Setting formData on upload start
           var csrftoken = $.cookie('csrftoken');
-
           function csrfSafeMethod(method) {
               // these HTTP methods do not require CSRF protection
               return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -106,17 +111,38 @@
             }
           });
 
+          // On submit of the fileupload
           $('form#fileupload').bind('fileuploadsubmit', function (e, data) {
-            var folder = $('#folder').val();           
-            data.formData = { 'folder': folder };
-            if (!data.formData.folder) {
-              data.context.find('button').prop('disabled', false);
-              $('.alert.folder').show( "slow", function() {
-                // Animation complete.
-              });
+            
+            var ret = false;
+            $.each(data.files, function (index, file) {
+              fileName = file.name;
+              var ext = fileName.split('.').pop().toLowerCase();
+              if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {  
+                  $('.alert.invalid-format').show( "slow", function() { /* Animation complete. */ });
+                  ret = true;
+                  return false;
+              } else {
+                  $('.alert.invalid-format').hide( "slow", function() { /* Animation complete. */ });
+              }
+            });
+
+            // Stop it!!!
+            if (ret) return false;
+
+            // Passing folder as an argument
+            var folder = $('#folder').val();  
+            data.formData = { 'folder': folder };         
+
+            // If folder's name is empty stop execution
+            if (folder == '' && !data.formData.folder) {
+              //data.context.find('button').prop('disabled', false);
+              $('.alert.folder').show( "slow", function() { /* Animation complete. */ });
               return false;
+            } else {
+              $('.alert.folder').hide( "slow", function() { /* Animation complete. */ });
             }
-            //return false;
+      
           });
         });
     </script>

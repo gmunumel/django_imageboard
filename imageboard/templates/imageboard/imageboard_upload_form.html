@@ -41,6 +41,17 @@ Bootstrap CSS Toolkit styles
 </noscript>
 {% endblock %}
 
+  {% block FILE_INPUT %}
+  {% comment %}
+      The file input for the upload form.
+  {% endcomment %}
+  <input 
+      type="file" name="files[]" multiple 
+      accept = "image/*"
+  >
+  {% endblock %}
+
+
 {% block CSS_HTML5_SHIM %}
 
     {% comment %}
