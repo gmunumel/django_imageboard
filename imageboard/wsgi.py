@@ -13,8 +13,8 @@ middleware here, or combine a Django application with an application of another
 framework.
 """
 import os
-#from os.path import abspath, dirname
-#from sys import path
+from os.path import abspath, dirname
+from sys import path
 
 SITE_ROOT = dirname(dirname(abspath(__file__)))
 path.append(SITE_ROOT)
