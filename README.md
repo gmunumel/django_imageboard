@@ -1,10 +1,7 @@
 Django Imageboard
 =================
 
-<div style="float: right">
-[![Build Status](https://travis-ci.org/gmunumel/djangoimageboard.svg?branch=master)](https://travis-ci.org/gmunumel/djangoimageboard)
-</div>
-
+<img style="float: right" src="https://travis-ci.org/gmunumel/djangoimageboard.svg?branch=master">
 
 Django application to manage and display images using some cool features. 
 
