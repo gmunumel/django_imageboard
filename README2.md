@@ -7,7 +7,7 @@ The `HOME` of the working environment is in `$HOME/.virtualenvs (/home/<user>/.v
 
 
 Notice
-======
+------
 
 This application use [Django Version 1.8](https://docs.djangoproject.com/en/1.8/releases/1.8/). If there is a problem you need to run the following command to install de requirements for the project:
   
@@ -15,7 +15,7 @@ This application use [Django Version 1.8](https://docs.djangoproject.com/en/1.8/
 
 
 Useful db commands
-=====================
+------------------
 
 * Connect to postgres
 
