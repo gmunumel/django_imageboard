@@ -1,6 +1,12 @@
 Django Imageboard
 =================
 
+[![Build Status](https://travis-ci.org/gmunumel/djangoimageboard.svg?branch=master)](https://travis-ci.org/gmunumel/djangoimageboard){.callout}
+
+.callout {
+    float: right;
+}
+
 Django application to manage and display images using some cool features. 
 
 
@@ -18,26 +24,35 @@ Installation
 
 * Clone my repository
 
-      git clone https://github.com/gmunumel/djangoimageboard.git
+```
+git clone https://github.com/gmunumel/djangoimageboard.git
+```
 
 * Install needed dependencies
 
-      pip install -r requirements.txt 
+```
+pip install -r requirements.txt 
+```
 
 * Start a clean database
 
-      python manage.py migrate --settings=imageboard.settings.local
+```
+python manage.py migrate --settings=imageboard.settings.local
+```
 
 * Load initial data using fixtures
 
-      python manage.py loaddata tag --settings=imageboard.settings.local
-      python manage.py loaddata image --settings=imageboard.settings.local
-      python manage.py loaddata imagetag --settings=imageboard.settings.local
+```
+python manage.py loaddata tag --settings=imageboard.settings.local
+python manage.py loaddata image --settings=imageboard.settings.local
+python manage.py loaddata imagetag --settings=imageboard.settings.local
+```
     
 * Create super user for administrative purposes
 
-      python manage.py createsuperuser --settings=imageboard.settings.local
-
+```
+python manage.py createsuperuser --settings=imageboard.settings.local
+```
 
 Usage
 -----
@@ -47,7 +62,7 @@ Enter to the administrative site by clicking on `Add new images` and then login.
 Troubleshooting 
 ---------------
 
-In case you have any problem to run the application please refer to [README2.txt](https://github.com/gmunumel/djangoimageboard/blob/master/README2.txt) file.
+In case you have any problem to run the application please refer to [README2.md](https://github.com/gmunumel/djangoimageboard/blob/master/README2.md) file.
 
 
 Notice
