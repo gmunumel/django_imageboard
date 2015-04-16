@@ -96,11 +96,11 @@
                       xhr.setRequestHeader("X-CSRFToken", csrftoken);
                   }
               }
-         });
+        });
           
-         // Populated list of folders 
-         availableFolders = [];
-         $.ajax({
+        // Populated list of folders 
+        availableFolders = [];
+        $.ajax({
             type: "GET",
             url: "/imageboard/image/list-folders/",
             success: function (result) {
@@ -114,10 +114,10 @@
                 // Animation complete.
               });
             }
-          });
+        });
 
-          // On submit of the fileupload
-          $('form#fileupload').bind('fileuploadsubmit', function (e, data) {
+        // On submit of the fileupload
+        $('form#fileupload').bind('fileuploadsubmit', function (e, data) {
             
             // For each file check that we have
             // the right image format
@@ -160,6 +160,19 @@
             }
       
           });
+        });
+
+        // for every new element in table i'm going   
+        // to add the width and height in img 
+        $('.table').bind("DOMNodeInserted", function(e){
+            var elem = e.target.nodeName;
+            if (elem == 'TR'){
+              var img = $(this).find("img");
+              if (img != undefined) {
+                img.attr('height', '100');
+                img.attr('width', '100');
+              }
+            }
         });
     </script>
 {% endblock %}
